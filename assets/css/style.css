@@ -10,11 +10,11 @@
 .site-header {
   /* Grid makes centering dead simple and responsive */
   display: grid;
-  grid-template-columns: auto 1fr auto; /* left icon | logo | right icon */
+  grid-template-columns: auto 1fr auto; /* logo | spacer | hamburger */
   align-items: center;
   gap: clamp(0.5rem, 2vw, 1rem);
 
-  background: #fff;
+  background: #202020;
   padding: clamp(0.4rem, 2vw, 0.8rem) clamp(0.8rem, 3vw, 1.2rem);
   /* Let content define height instead of hard-coding */
   min-height: clamp(56px, 10vw, 88px);
@@ -32,9 +32,43 @@
   line-height: 1;
 }
 
-/* Center the logo cell */
+/* Logo on the left */
 .logo {
-  justify-self: center;
+  justify-self: start;
+}
+
+/* Hamburger menu */
+.hamburger-menu {
+  justify-self: end;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+}
+
+.hamburger-bar {
+  display: block;
+  width: 24px;
+  height: 3px;
+  background-color: #fff;
+  border-radius: 2px;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.hamburger-menu.active .hamburger-bar:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+
+.hamburger-menu.active .hamburger-bar:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger-menu.active .hamburger-bar:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
 }
 
 /* Fluid logo height with a sensible min/max */
@@ -80,7 +114,7 @@ img {
 
 /* Header and navigation */
 header {
-  background-color: #056839;
+  background-color: #202020;
   color: white;
   padding: 1rem;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);

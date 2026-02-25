@@ -1,4 +1,4 @@
-// Main JavaScript file for Clean Home Hacks
+// Main JavaScript file for Daily Fitness Edit
 
 // Head Component - Insert favicon and stylesheets
 function insertHeadElements(pageType = 'root') {
@@ -13,15 +13,13 @@ function insertHeadElements(pageType = 'root') {
     // Create the head elements
     const headElements = `
         <!-- Favicon -->
-        <link rel="icon" type="image/x-icon" href="${assetPath}/images/favicon.ico">
-        <link rel="icon" type="image/png" sizes="16x16" href="${assetPath}/images/favicon-16x16.png">
-        <link rel="icon" type="image/png" sizes="32x32" href="${assetPath}/images/favicon-32x32.png">
-        <link rel="apple-touch-icon" sizes="180x180" href="${assetPath}/images/apple-touch-icon.png">
+        <link rel="icon" type="image/png" href="${assetPath}/images/DFE-logo.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="${assetPath}/images/DFE-logo.png">
         <link rel="manifest" href="${assetPath}/images/site.webmanifest">
 
         <!-- Additional Meta Tags -->
-        <meta name="theme-color" content="#2c5aa0">
-        <meta name="msapplication-TileColor" content="#2c5aa0">
+        <meta name="theme-color" content="#202020">
+        <meta name="msapplication-TileColor" content="#202020">
     `;
     
     // Insert the elements into the head
@@ -79,7 +77,7 @@ function loadStylesheets(assetPath) {
 function insertNavigation(pageType = 'root', currentPage = '') {
     // Determine the correct paths based on page type
     const homePath = pageType === 'blog' ? '../index.html' : 'index.html';
-    const logoPath = pageType === 'blog' ? '../assets/images/logo.png' : 'assets/images/logo.png';
+    const logoPath = pageType === 'blog' ? '../assets/images/DFE-logoH.png' : 'assets/images/DFE-logoH.png';
     const blogPath = pageType === 'blog' ? 'index.html' : 'blog/index.html';
     
     // Create navigation HTML
@@ -87,9 +85,15 @@ function insertNavigation(pageType = 'root', currentPage = '') {
         <header class="site-header">
             <div class="logo">
                 <a href="${homePath}">
-                    <img src="${logoPath}" alt="Site Logo">
+                    <img src="${logoPath}" alt="Daily Fitness Edit Logo">
                 </a>
             </div>
+            <div class="header-spacer"></div>
+            <button class="hamburger-menu" aria-label="Open menu" onclick="toggleMobileMenu()">
+                <span class="hamburger-bar"></span>
+                <span class="hamburger-bar"></span>
+                <span class="hamburger-bar"></span>
+            </button>
         </header>
     `;
     
@@ -110,7 +114,7 @@ function insertFooter(pageType = 'root') {
             <div class="container">
                 <div class="row">
                     <div class="col-md-12 text-center">
-                        <p>&copy; 2025 Clean Home Hacks. All rights reserved.</p>
+                        <p>&copy; 2025 Daily Fitness Edit. All rights reserved.</p>
                         <p>
                             <a href="${privacyPath}">Privacy Policy</a> | 
                             <a href="${termsPath}">Terms of Service</a>
@@ -155,6 +159,12 @@ function createImageComponent({ src, alt, caption }) {
     `;
   }
 
+
+// Hamburger menu toggle
+function toggleMobileMenu() {
+    const hamburger = document.querySelector('.hamburger-menu');
+    hamburger.classList.toggle('active');
+}
 
 // Load components immediately when script loads (before DOM ready)
 (function() {
