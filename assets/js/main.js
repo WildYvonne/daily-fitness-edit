@@ -66,6 +66,12 @@ function loadStylesheets(assetPath) {
     const bootstrapCSS = document.createElement('link');
     bootstrapCSS.rel = 'stylesheet';
     bootstrapCSS.href = 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css';
+
+    // Load Google Fonts (Oswald + Roboto)
+    const googleFonts = document.createElement('link');
+    googleFonts.rel = 'stylesheet';
+    googleFonts.href = 'https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap';
+    document.head.appendChild(googleFonts);
     bootstrapCSS.integrity = 'sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr';
     bootstrapCSS.crossOrigin = 'anonymous';
     bootstrapCSS.onload = onStylesheetLoad;
