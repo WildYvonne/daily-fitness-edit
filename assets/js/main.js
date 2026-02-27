@@ -174,13 +174,13 @@ function toggleMobileMenu() {
 
 // Load components immediately when script loads (before DOM ready)
 (function() {
-    // Check if we're in a blog subdirectory
-    const isInBlog = window.location.pathname.includes('/blog/');
-    const pageType = isInBlog ? 'blog' : 'root';
+    // Check if we're in a subdirectory (blog or pages)
+    const isInSubdir = window.location.pathname.includes('/blog/') || window.location.pathname.includes('/pages/');
+    const pageType = isInSubdir ? 'blog' : 'root';
     
     // Determine current page for active state
     let currentPage = '';
-    if (window.location.pathname.includes('/blog/')) {
+    if (window.location.pathname.includes('/blog/') || window.location.pathname.includes('/pages/')) {
         currentPage = 'blog';
     } else if (window.location.pathname.includes('quiz.html')) {
         currentPage = 'quiz';
