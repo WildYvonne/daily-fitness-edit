@@ -47,8 +47,9 @@
 
 
         .card-img-top {
-        height: auto;
-        max-width: 100%;
+        height: 300px;
+        width: 100%;
+        object-fit: cover;
         display: block;
         }
         .card {
@@ -56,7 +57,10 @@
         }
         /* Let the cards shrink in height too */
         .card-body p {
-        font-size: clamp(0.3rem, 2.5vw, 1rem);
+          font-family: "Oswald", "Arial", sans-serif;
+          font-size: clamp(0.9rem, 2vw, 1.05rem);
+          font-weight: 600;
+          line-height: 1.3;
         }
 
         /* On mobile (Bootstrap's sm breakpoint and below) */
@@ -70,19 +74,12 @@
 </head>
 <body>
     <main>
+        <!-- Hero Section -->
+        <section style="background-image: url('assets/images/hero-image-2.jpg'); background-size: cover; background-position: center; min-height: 400px; display: flex; align-items: center; justify-content: center;">
+            <h1 style="font-family: 'Oswald', 'Arial', sans-serif; color: white; font-size: clamp(2rem, 6vw, 4rem); font-weight: 700; text-align: center; padding: 0 1rem;">Thrive Through the Power of Movement</h1>
+        </section>
+
         <div class="container">
-            <!-- Hero Section -->
-            <section class="my-4 p-4 bg-white rounded-3">
-                <div class="row align-items-center">
-                    <div class="col-12 col-md-6">
-                        <h1 style="font-size: clamp(1.5rem, 4vw, 2.2rem); font-weight: 700; margin-bottom: 0.75rem;">Daily Fitness Edit</h1>
-                        <p style="color: #555; font-size: clamp(0.85rem, 2vw, 1rem); line-height: 1.6;">Daily Fitness Edit is your hub for practical, science-backed tips on fitness, wellness, and healthy living — so you can feel stronger, more energized, and ready to take on every day.</p>
-                    </div>
-                    <div class="col-12 col-md-6">
-                        <img src="assets/images/website-hero.png" alt="Daily Fitness Edit" class="img-fluid rounded-3">
-                    </div>
-                </div>
-            </section>
 
             <!-- Latest Articles Section -->
             <section class="mx-auto my-5">
@@ -91,63 +88,49 @@
                   <div style="width: 60px; height: 3px; background-color: #e8833a;"></div>
                 </div>
 
-                <!-- Featured Articles Layout -->
-                <div class="row mt-4 g-3">
+                <!-- Featured Articles Layout -->                <div class="row mt-4 g-3">
                     <!-- Main Featured Article (Left Side) -->
                     <div class="col-12 col-lg-8">
-                        <article class="featured-article">
-                            <a href="#">
-                                <img src="assets/images/young-smiling-woman.jpg" alt="Young smiling woman" class="img-fluid rounded-3 mb-3" style="width: 100%; height: auto;">
+                        <article class="featured-article" style="position: relative;">
+                            <a href="pages/5-solutions-brain-fog-think-clearly.html">
+                                <img src="assets/images/brain-fog-hero.png" alt="My Brain Felt Slow and Foggy All the Time" class="img-fluid rounded-3 mb-3" style="width: 100%; height: auto;">
                             </a>
+                            <div class="cat-tag text-white" style="background-color: #c62828;">Editor's Pick</div>
                             <h3 style="font-size: clamp(1.2rem, 3vw, 1.8rem); font-weight: 700; line-height: 1.3; margin-bottom: 0.75rem;">
-                                <a href="#" class="text-decoration-none text-dark">
-                                    These Are The Exercises Every Woman Needs In Her 30s, 40s, And 60s—And The Benefits Go Beyond Muscle
+                                <a href="pages/5-solutions-brain-fog-think-clearly.html" class="text-decoration-none text-dark">
+                                    My Brain Felt Slow and Foggy All the Time — I Tested 5 Solutions for 12 Months That Helped Me Think Clearly Again
                                 </a>
                             </h3>
-                            <p style="color: #666; font-size: clamp(0.9rem, 2vw, 1rem); margin-bottom: 0.5rem;">
-                                It's never too early—or too late—to start.
-                            </p>
-                            <p style="color: #999; font-size: clamp(0.8rem, 1.8vw, 0.9rem);">
-                                By Jacqueline Andriakos, NASM-CPT | Feb 21, 2026
-                            </p>
                         </article>
                     </div>
 
                     <!-- Sidebar Articles (Right Side) -->
                     <div class="col-12 col-lg-4">
-                        <div class="d-flex flex-column gap-3">
+                        <div class="d-flex flex-column gap-4">
                             <!-- Sidebar Article 1 -->
-                            <article class="d-flex gap-2">
-                                <a href="#" style="flex-shrink: 0; width: 80px; height: 80px;">
-                                    <img src="assets/images/gym-girls.jpg" alt="Gym girls" class="img-fluid rounded-2" style="width: 100%; height: 100%; object-fit: cover;">
+                            <article style="position: relative;">
+                                <a href="pages/7-exercises-that-actually-work.html">
+                                    <img src="assets/images/7-easiest.png" alt="7 Easiest and Most Effective Exercises" class="img-fluid rounded-3 mb-2" style="width: 100%; height: 200px; object-fit: cover;">
                                 </a>
-                                <div>
-                                    <h4 style="font-size: clamp(0.85rem, 2vw, 0.95rem); font-weight: 600; line-height: 1.3; margin-bottom: 0.25rem;">
-                                        <a href="#" class="text-decoration-none text-dark">
-                                            5 Morning Stretches That Will Transform Your Day
-                                        </a>
-                                    </h4>
-                                    <p style="color: #999; font-size: clamp(0.7rem, 1.5vw, 0.8rem); margin: 0;">
-                                        By Sarah Johnson | Feb 24, 2026
-                                    </p>
-                                </div>
+                                <div class="cat-tag text-white" style="background-color: #e8833a;">Fitness</div>
+                                <h4 style="font-size: clamp(0.9rem, 2vw, 1.05rem); font-weight: 600; line-height: 1.3; margin-bottom: 0.25rem;">
+                                    <a href="pages/7-exercises-that-actually-work.html" class="text-decoration-none text-dark">
+                                        7 Easiest and Most Effective Exercises That Actually Work — According to Trainers
+                                    </a>
+                                </h4>
                             </article>
 
                             <!-- Sidebar Article 2 -->
-                            <article class="d-flex gap-2">
-                                <a href="#" style="flex-shrink: 0; width: 80px; height: 80px;">
-                                    <img src="assets/images/happy-young-woman.jpg" alt="Happy young woman" class="img-fluid rounded-2" style="width: 100%; height: 100%; object-fit: cover;">
+                            <article style="position: relative;">
+                                <a href="pages/how-gym-changes-your-body-and-mind.html">
+                                    <img src="assets/images/gym-change-your-mind.png" alt="How Going to the Gym Actually Changes Your Body and Mind" class="img-fluid rounded-3 mb-2" style="width: 100%; height: 200px; object-fit: cover;">
                                 </a>
-                                <div>
-                                    <h4 style="font-size: clamp(0.85rem, 2vw, 0.95rem); font-weight: 600; line-height: 1.3; margin-bottom: 0.25rem;">
-                                        <a href="#" class="text-decoration-none text-dark">
-                                            The New Rules of Muscle Building
-                                        </a>
-                                    </h4>
-                                    <p style="color: #999; font-size: clamp(0.7rem, 1.5vw, 0.8rem); margin: 0;">
-                                        By Cori Ritchey, C.S.C.S. | Feb 24, 2026
-                                    </p>
-                                </div>
+                                <div class="cat-tag text-white" style="background-color: #d89d82;">Health</div>
+                                <h4 style="font-size: clamp(0.9rem, 2vw, 1.05rem); font-weight: 600; line-height: 1.3; margin-bottom: 0.25rem;">
+                                    <a href="pages/how-gym-changes-your-body-and-mind.html" class="text-decoration-none text-dark">
+                                        How Going to the Gym Actually Changes Your Body and Mind
+                                    </a>
+                                </h4>
                             </article>
                         </div>
                     </div>
@@ -164,7 +147,7 @@
                         <a href="pages/4-products-changed-everything.html">
                             <img src="assets/images/4-products-hero.png" class="card-img-top" alt="I'm A Busy Woman Who Wants To Stay Healthy — These 4 Products Changed My Fitness Game">
                         </a>
-                      <div class="cat-tag text-white" style="background-color: #c62828;">Editor's Pick</div>
+                      <div class="cat-tag text-white" style="background-color: #d89d82;">Health</div>
                       <div class="card-body">
                         <a href="pages/4-products-changed-everything.html" class="text-decoration-none text-dark">
                             <p class="card-text">
@@ -178,14 +161,14 @@
                   <!-- Slot 2 -->
                   <div class="col">
                     <div class="card h-100 border-0">
-                        <a href="pages/7-exercises-that-actually-work.html">
-                            <img src="assets/images/7-easiest.png" class="card-img-top" alt="7 Easiest and Most Effective Exercises That Actually Work">
+                        <a href="#">
+                            <img src="assets/images/gym-girls.jpg" class="card-img-top" alt="5 Morning Stretches That Will Transform Your Day">
                         </a>
                         <div class="cat-tag text-white" style="background-color: #e8833a;">Fitness</div>
                       <div class="card-body">
-                        <a href="pages/7-exercises-that-actually-work.html" class="text-decoration-none text-dark">
+                        <a href="#" class="text-decoration-none text-dark">
                             <p class="card-text">
-                              7 Easiest and Most Effective Exercises That Actually Work — According to Trainers
+                              5 Morning Stretches That Will Transform Your Day
                             </p>
                         </a>
                       </div>
@@ -195,14 +178,14 @@
                   <!-- Slot 3 -->
                   <div class="col">
                     <div class="card h-100 border-0">
-                        <a href="pages/how-gym-changes-your-body-and-mind.html">
-                            <img src="assets/images/gym-change-your-mind.png" class="card-img-top" alt="How Going to the Gym Actually Changes Your Body and Mind">
+                        <a href="#">
+                            <img src="assets/images/happy-young-woman.jpg" class="card-img-top" alt="The New Rules of Muscle Building">
                         </a>
-                      <div class="cat-tag text-white" style="background-color: #d89d82;">Health</div>
+                      <div class="cat-tag text-white" style="background-color: #4db6e8;">Lifestyle</div>
                       <div class="card-body">
-                        <a href="pages/how-gym-changes-your-body-and-mind.html" class="text-decoration-none text-dark">
+                        <a href="#" class="text-decoration-none text-dark">
                             <p class="card-text">
-                              How Going to the Gym Actually Changes Your Body and Mind
+                              The New Rules of Muscle Building
                             </p>
                         </a>
                       </div>
@@ -246,14 +229,14 @@
                   <!-- Slot 6 -->
                   <div class="col">
                     <div class="card h-100 border-0">
-                        <a href="pages/5-solutions-brain-fog-think-clearly.html">
-                            <img src="assets/images/brain-fog-hero.png" class="card-img-top" alt="My Brain Felt Slow and Foggy All the Time — I Tested 5 Solutions for 6 Months That Helped Me Think Clearly Again">
+                        <a href="#">
+                            <img src="assets/images/young-smiling-woman.jpg" class="card-img-top" alt="These Are The Exercises Every Woman Needs In Her 30s, 40s, And 60s">
                         </a>
-                      <div class="cat-tag text-white" style="background-color: #c62828;">Editor's Pick</div>
+                      <div class="cat-tag text-white" style="background-color: #d89d82;">Health</div>
                       <div class="card-body">
-                        <a href="pages/5-solutions-brain-fog-think-clearly.html" class="text-decoration-none text-dark">
+                        <a href="#" class="text-decoration-none text-dark">
                             <p class="card-text">
-                              My Brain Felt Slow and Foggy All the Time — I Tested 5 Solutions for 6 Months That Helped Me Think Clearly Again
+                              These Are The Exercises Every Woman Needs In Her 30s, 40s, And 60s — And The Benefits Go Beyond Muscle
                             </p>
                         </a>
                       </div>
@@ -280,7 +263,6 @@
                 </div>
               </section>
             </div>
-        </div>
     </main>
 </body>
 </html>
