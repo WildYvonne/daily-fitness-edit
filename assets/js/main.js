@@ -1,5 +1,11 @@
 // Main JavaScript file for Daily Fitness Edit
 
+/** In-site category listing (pages/category-*.html); same-dir links from /pages/*. */
+function categoryNavHref(pageType, slug) {
+    const file = `category-${slug}.html`;
+    return pageType === 'blog' ? file : `pages/${file}`;
+}
+
 // Head Component - Insert favicon and stylesheets
 function insertHeadElements(pageType = 'root') {
     // Check if head elements already exist to prevent duplicates
@@ -84,8 +90,30 @@ function insertNavigation(pageType = 'root', currentPage = '') {
     // Determine the correct paths based on page type
     const homePath = pageType === 'blog' ? '../index.html' : 'index.html';
     const logoPath = pageType === 'blog' ? '../assets/images/DFE-logoH.png' : 'assets/images/DFE-logoH.png';
-    const blogPath = pageType === 'blog' ? 'index.html' : 'blog/index.html';
-    
+    const base = pageType === 'blog' ? '../' : '';
+
+    const navLinks = [
+        { label: 'Fitness', href: categoryNavHref(pageType, 'fitness') },
+        { label: 'Health', href: categoryNavHref(pageType, 'health') },
+        { label: 'Nutrition', href: categoryNavHref(pageType, 'nutrition') },
+        { label: "Editor's Pick", href: categoryNavHref(pageType, 'editors-pick') },
+    ];
+
+    const linkItems = (items) =>
+        items
+            .map(
+                (item) =>
+                    `<li><a class="mobile-nav-link" href="${item.href}">${item.label}</a></li>`
+            )
+            .join('');
+
+    const desktopNavLinks = navLinks
+        .map(
+            (item) =>
+                `<a class="site-header-nav-link" href="${item.href}">${item.label}</a>`
+        )
+        .join('');
+
     // Create navigation HTML
     const navigationHTML = `
         <header class="site-header">
@@ -94,45 +122,355 @@ function insertNavigation(pageType = 'root', currentPage = '') {
                     <img src="${logoPath}" alt="Daily Fitness Edit Logo">
                 </a>
             </div>
-            <div class="header-spacer"></div>
-            <button class="hamburger-menu" aria-label="Open menu" onclick="toggleMobileMenu()">
+            <nav class="site-header-nav" aria-label="Main">${desktopNavLinks}</nav>
+            <button type="button" class="hamburger-menu" id="hamburger-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav-drawer" onclick="toggleMobileMenu()">
                 <span class="hamburger-bar"></span>
                 <span class="hamburger-bar"></span>
                 <span class="hamburger-bar"></span>
             </button>
         </header>
+        <div class="mobile-nav" id="mobile-nav-root" hidden>
+            <div class="mobile-nav-backdrop" data-close-mobile-nav tabindex="-1" aria-hidden="true"></div>
+            <nav class="mobile-nav-drawer" id="mobile-nav-drawer" aria-label="Site">
+                <ul class="mobile-nav-col">${linkItems(navLinks)}</ul>
+            </nav>
+        </div>
     `;
-    
+
     // Insert navigation at the beginning of body
     document.body.insertAdjacentHTML('afterbegin', navigationHTML);
+
+    const root = document.getElementById('mobile-nav-root');
+    const backdrop = root.querySelector('.mobile-nav-backdrop');
+
+    backdrop.addEventListener('click', () => toggleMobileMenu(false));
+    root.querySelectorAll('.mobile-nav-link').forEach((a) => {
+        a.addEventListener('click', () => toggleMobileMenu(false));
+    });
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && root.classList.contains('is-open')) {
+            toggleMobileMenu(false);
+        }
+    });
+    window.addEventListener('resize', () => {
+        if (window.matchMedia('(min-width: 992px)').matches && root.classList.contains('is-open')) {
+            toggleMobileMenu(false);
+        }
+    });
 }
 
 
 // Footer Component - Insert footer HTML
 function insertFooter(pageType = 'root') {
-    // Determine the correct paths based on page type
     const privacyPath = pageType === 'blog' ? '../privacy-policy.html' : 'privacy-policy.html';
     const termsPath = pageType === 'blog' ? '../terms-of-service.html' : 'terms-of-service.html';
-    
-    // Create footer HTML
+    const base = pageType === 'blog' ? '../' : '';
+
+    const navLinks = [
+        { label: 'Fitness', href: categoryNavHref(pageType, 'fitness') },
+        { label: 'Health', href: categoryNavHref(pageType, 'health') },
+        { label: 'Nutrition', href: categoryNavHref(pageType, 'nutrition') },
+        { label: "Editor's Pick", href: categoryNavHref(pageType, 'editors-pick') },
+    ];
+
+    const footerNavCols = (items) =>
+        items.map((item) => `<a class="site-footer-nav-link" href="${item.href}">${item.label}</a>`).join('');
+
     const footerHTML = `
-        <footer>
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12 text-center">
-                        <p>&copy; 2026 Daily Fitness Edit. All rights reserved.</p>
-                        <p>
-                            <a href="${privacyPath}">Privacy Policy</a> | 
-                            <a href="${termsPath}">Terms of Service</a>
-                        </p>
+        <footer class="site-footer">
+            <div class="site-footer-shell">
+                <div class="site-footer-inner">
+                    <div class="site-footer-brand-block">
+                        <p class="site-footer-title">Daily Fitness Edit</p>
+                        <p class="site-footer-tagline">Honest reads on training, recovery, and everyday strength.</p>
+                        <p class="site-footer-newsletter-label">Get occasional notes in your inbox</p>
+                        <form class="site-footer-newsletter" action="#" method="get" onsubmit="return false" aria-label="Newsletter signup">
+                            <div class="site-footer-input-group">
+                                <span class="site-footer-input-icon" aria-hidden="true">
+                                    <svg width="18" height="14" viewBox="0 0 18 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 2h16v10H1V2zm0 0l8 6 8-6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                </span>
+                                <input type="email" name="email" class="site-footer-email" placeholder="you@example.com" autocomplete="email" />
+                                <button type="submit" class="site-footer-subscribe">Subscribe</button>
+                            </div>
+                        </form>
+                        <a class="site-footer-social" href="https://www.instagram.com/dailyfitnessedit/" target="_blank" rel="noopener noreferrer">Instagram</a>
                     </div>
+                    <nav class="site-footer-nav" aria-label="Site links">
+                        <div class="site-footer-nav-cols">
+                            <div class="site-footer-nav-col">
+                                <p class="site-footer-nav-col-title">Categories</p>
+                                ${footerNavCols(navLinks)}
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+                <div class="site-footer-bar">
+                    <p class="site-footer-copy">&copy; 2026 Daily Fitness Edit. All rights reserved.</p>
+                    <p class="site-footer-legal">
+                        <a href="${privacyPath}">Privacy Policy</a>
+                        <span class="site-footer-dot" aria-hidden="true">·</span>
+                        <a href="${termsPath}">Terms of Service</a>
+                    </p>
                 </div>
             </div>
         </footer>
     `;
-    
-    // Insert footer at the end of body
+
     document.body.insertAdjacentHTML('beforeend', footerHTML);
+}
+
+/** Story pages under /pages/ (not category listings): “Related articles” grid before footer */
+const RELATED_ARTICLE_STORIES = [
+    {
+        file: '5-solutions-brain-fog-think-clearly.html',
+        image: 'brain-fog-hero.png',
+        meta: '<span style="color:#fff;background:#e65100;padding:0.1rem 0.32rem;border-radius:2px;">Editor\'s Pick</span> &nbsp;|&nbsp; APR 15, 2026',
+        title: 'My Brain Felt Slow and Foggy All the Time — I Tested 5 Solutions for 12 Months That Helped Me Think Clearly Again',
+        by: 'By Ashley Reyes',
+    },
+    {
+        file: '7-exercises-that-actually-work.html',
+        image: '7-easiest.png',
+        meta: '<span style="color:#1a1a1a;background:#ffef91;padding:0.1rem 0.32rem;border-radius:2px;">Fitness</span> &nbsp;|&nbsp; APR 3, 2026',
+        title: '7 Easiest and Most Effective Exercises That Actually Work — According to Trainers',
+        by: 'By Claire Montgomery',
+    },
+    {
+        file: 'how-gym-changes-your-body-and-mind.html',
+        image: 'gym-change-your-mind.png',
+        meta: '<span style="color:#fff;background:#388e3c;padding:0.1rem 0.32rem;border-radius:2px;">Health</span> &nbsp;|&nbsp; APR 1, 2026',
+        title: 'How Going to the Gym Actually Changes Your Body and Mind',
+        by: 'By Elena Marlowe',
+    },
+    {
+        file: 'what-i-eat-3-food-recommendations.html',
+        image: 'food-hero.png',
+        meta: '<span style="color:#fff;background:#1976d2;padding:0.1rem 0.32rem;border-radius:2px;">Nutrition</span> &nbsp;|&nbsp; APR 6, 2026',
+        title: 'What I Eat: 3 Food Recommendations That Changed My Energy and Health',
+        by: 'By Elena Marlowe',
+    },
+    {
+        file: '4-products-changed-everything.html',
+        image: '4-products-hero.png',
+        meta: '<span style="color:#fff;background:#e65100;padding:0.1rem 0.32rem;border-radius:2px;">Editor\'s Pick</span> &nbsp;|&nbsp; MAR 28, 2026',
+        title: 'I\'m A Busy Woman Who Wants To Stay Healthy — These 4 Products Changed My Fitness Game',
+        by: 'By Sienna Hartley',
+    },
+    {
+        file: 'my-3-month-gym-journey.html',
+        image: '3month-hero.png',
+        meta: '<span style="color:#1a1a1a;background:#ffef91;padding:0.1rem 0.32rem;border-radius:2px;">Fitness</span> &nbsp;|&nbsp; APR 4, 2026',
+        title: 'My 3-Month Gym Journey: How Showing Up Every Day Changed Everything',
+        by: 'By Sienna Hartley',
+    },
+    {
+        file: '5-things-help-me-get-my-strength-back.html',
+        image: 'TPB-33-1.png',
+        meta: '<span style="color:#fff;background:#e65100;padding:0.1rem 0.32rem;border-radius:2px;">Editor\'s Pick</span> &nbsp;|&nbsp; APR 8, 2026',
+        title: 'My Shoulder Press Dropped From 33s to 22s — These 5 Things Helped Me Get My Strength Back',
+        by: 'By Ashley Reyes',
+    },
+];
+
+/** Preset thread under Comments — three items per story page (topic-matched; not stored). */
+const ARTICLE_PRESET_COMMENTS_BY_PAGE = {
+    '5-solutions-brain-fog-think-clearly.html': [
+        { initial: 'D', name: 'Dana P.', time: 'Apr 19, 2026', text: 'The part about stacking small habits over a year is what I needed. Brain fog is so hard to explain to people.' },
+        { initial: 'J', name: 'Jordan W.', time: 'Apr 18, 2026', text: 'Curious if you still use the same stack now. This read felt really grounded compared to most supplement posts.' },
+        { initial: 'L', name: 'Lee M.', time: 'Apr 17, 2026', text: 'Sent this to my sister. She has been blaming sleep only — your recovery angle clicked.' },
+    ],
+    '7-exercises-that-actually-work.html': [
+        { initial: 'T', name: 'Tara B.', time: 'Apr 12, 2026', text: 'Finally a list that is not 20 burpee variations. I tried two of these after leg day and they felt doable.' },
+        { initial: 'K', name: 'Ken O.', time: 'Apr 11, 2026', text: 'Trainer here — agree that consistency beats novelty. Nice breakdown for readers who are new to the gym.' },
+        { initial: 'A', name: 'Ari N.', time: 'Apr 10, 2026', text: 'Would love a short follow-up on how often you cycle these in a week. Great article.' },
+    ],
+    'how-gym-changes-your-body-and-mind.html': [
+        { initial: 'E', name: 'Evan R.', time: 'Apr 14, 2026', text: 'The mood shift after month two is real. I did not expect the mental side to hit before the mirror did.' },
+        { initial: 'N', name: 'Nina C.', time: 'Apr 13, 2026', text: 'Shared with my partner who thinks the gym is only for aesthetics. This explains the whole picture better than I could.' },
+        { initial: 'H', name: 'Hannah T.', time: 'Apr 12, 2026', text: 'Love that you called out sleep and stress, not just sets and reps. That is where people usually quit.' },
+    ],
+    'what-i-eat-3-food-recommendations.html': [
+        { initial: 'P', name: 'Priya S.', time: 'Apr 16, 2026', text: 'Swapped one of my afternoon snacks after reading this. Energy crash is noticeably smaller.' },
+        { initial: 'M', name: 'Marco D.', time: 'Apr 15, 2026', text: 'Simple and practical — not another rigid meal plan. Thank you for keeping it human.' },
+        { initial: 'C', name: 'Chris L.', time: 'Apr 14, 2026', text: 'Do you batch cook on Sundays or wing it? Either way these three anchors make sense for busy weeks.' },
+    ],
+    '4-products-changed-everything.html': [
+        { initial: 'V', name: 'Vivian H.', time: 'Apr 9, 2026', text: 'As someone who travels for work, I appreciate that none of this reads like a junk drawer of gadgets.' },
+        { initial: 'O', name: 'Owen F.', time: 'Apr 8, 2026', text: 'Bought one of these on a whim last month. Your honest take on what actually gets used daily resonated.' },
+        { initial: 'I', name: 'Iris K.', time: 'Apr 7, 2026', text: 'The busy-mom angle is not preachy. Short list, clear why — more articles like this please.' },
+    ],
+    'my-3-month-gym-journey.html': [
+        { initial: 'B', name: 'Brett Y.', time: 'Apr 11, 2026', text: 'Three months is a believable timeline. I like that you did not promise a six-pack in two weeks.' },
+        { initial: 'W', name: 'Will S.', time: 'Apr 10, 2026', text: 'Showing up every day is the hardest part. Your note about boring weeks was oddly motivating.' },
+        { initial: 'G', name: 'Gina P.', time: 'Apr 9, 2026', text: 'Did you track workouts in an app or a notebook? Curious how you kept the streak on rough days.' },
+    ],
+    '5-things-help-me-get-my-strength-back.html': [
+        { initial: 'R', name: 'Rae L.', time: 'Apr 20, 2026', text: 'Shoulder numbers dipping is so demoralizing. Glad you spelled out what actually moved the needle for you.' },
+        { initial: 'S', name: 'Sam V.', time: 'Apr 19, 2026', text: 'Physical therapy plus patience — good reminder. I have been trying to rush the bar back up too fast.' },
+        { initial: 'Q', name: 'Quinn J.', time: 'Apr 18, 2026', text: 'Which of the five did you notice first in the gym? For me it was sleep before anything else clicked.' },
+    ],
+};
+
+const ARTICLE_PRESET_COMMENTS_FALLBACK = [
+    { initial: 'M', name: 'Maya K.', time: 'Apr 18, 2026', text: 'Loved the honesty here — this site has been one of the more grounded fitness reads lately.' },
+    { initial: 'R', name: 'Rico V.', time: 'Apr 17, 2026', text: 'Saving this. Simple takeaways and no screaming headline — appreciated.' },
+    { initial: 'S', name: 'Sonia L.', time: 'Apr 16, 2026', text: 'Would love a follow-up piece. Great read either way.' },
+];
+
+function getPresetCommentsForArticle(file) {
+    const list = ARTICLE_PRESET_COMMENTS_BY_PAGE[file];
+    return Array.isArray(list) && list.length ? list : ARTICLE_PRESET_COMMENTS_FALLBACK;
+}
+
+/** Guest comments under related articles: show in-page only, not sent or persisted */
+function setupArticleGuestComments() {
+    const section = document.getElementById('related-articles');
+    const form = document.getElementById('article-guest-comment-form');
+    const list = document.getElementById('article-fake-comment-list');
+    const countEl = document.getElementById('article-comments-count');
+    if (!section || !form || !list || !countEl) return;
+
+    const presetCount = list.querySelectorAll('.article-fake-comment--preset').length;
+    let total = presetCount;
+
+    function setCount() {
+        countEl.textContent = `${total} comment${total === 1 ? '' : 's'}`;
+    }
+
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const nameInput = form.querySelector('[name="guest-name"]');
+        const bodyInput = form.querySelector('[name="guest-body"]');
+        const rawName = (nameInput && nameInput.value) || '';
+        const rawBody = (bodyInput && bodyInput.value) || '';
+        const body = rawBody.trim();
+        if (!body) return;
+
+        const displayName = rawName.trim() || 'Guest';
+        const initial = (displayName.charAt(0) || '?').toUpperCase();
+        const dateStr = new Date().toLocaleDateString('en-US', {
+            month: 'short',
+            day: 'numeric',
+            year: 'numeric',
+        });
+
+        const li = document.createElement('li');
+        li.className = 'article-fake-comment article-fake-comment--guest';
+
+        const avatar = document.createElement('div');
+        avatar.className = 'article-fake-comment-avatar';
+        avatar.setAttribute('aria-hidden', 'true');
+        const avSpan = document.createElement('span');
+        avSpan.textContent = initial;
+        avatar.appendChild(avSpan);
+
+        const bodyWrap = document.createElement('div');
+        const head = document.createElement('p');
+        head.className = 'article-fake-comment-head';
+        const strong = document.createElement('strong');
+        strong.textContent = displayName;
+        head.appendChild(strong);
+        const timeSpan = document.createElement('span');
+        timeSpan.className = 'article-fake-comment-time';
+        timeSpan.textContent = ` · ${dateStr}`;
+        head.appendChild(timeSpan);
+
+        const textP = document.createElement('p');
+        textP.className = 'article-fake-comment-text';
+        textP.textContent = body;
+
+        bodyWrap.appendChild(head);
+        bodyWrap.appendChild(textP);
+        li.appendChild(avatar);
+        li.appendChild(bodyWrap);
+        list.appendChild(li);
+
+        total += 1;
+        setCount();
+        form.reset();
+        li.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    });
+
+    setCount();
+}
+
+function insertRelatedArticlesSection(pageType) {
+    if (pageType !== 'blog') return;
+    if (!window.location.pathname.includes('/pages/')) return;
+    const file = (window.location.pathname.split('/').pop() || '').split('?')[0];
+    if (!file.endsWith('.html') || file.startsWith('category-')) return;
+    if (document.getElementById('related-articles')) return;
+
+    const others = RELATED_ARTICLE_STORIES.filter((s) => s.file !== file);
+    const show = others.slice(0, 3);
+    if (show.length === 0) return;
+
+    const imgBase = '../assets/images/';
+    const cards = show
+        .map(
+            (it) => `
+    <div class="col-12 col-md-4">
+      <article class="article-related-card">
+        <a href="${it.file}"><img class="article-related-img" src="${imgBase}${it.image}" alt=""></a>
+        <div class="article-related-body">
+          <p class="article-related-meta">${it.meta}</p>
+          <h3 class="article-related-title"><a href="${it.file}">${it.title}</a></h3>
+          <p class="article-related-by">${it.by}</p>
+        </div>
+      </article>
+    </div>`
+        )
+        .join('');
+
+    const commentItems = getPresetCommentsForArticle(file)
+        .map(
+            (c) => `
+        <li class="article-fake-comment article-fake-comment--preset">
+          <div class="article-fake-comment-avatar" aria-hidden="true"><span>${c.initial}</span></div>
+          <div>
+            <p class="article-fake-comment-head"><strong>${c.name}</strong> <span class="article-fake-comment-time">· ${c.time}</span></p>
+            <p class="article-fake-comment-text">${c.text}</p>
+          </div>
+        </li>`
+        )
+        .join('');
+
+    const html = `
+    <section id="related-articles" class="article-related" aria-labelledby="article-related-heading">
+      <div class="article-related-cards-sheet">
+        <div class="article-related-wrap mx-auto py-3 py-md-4">
+          <h2 id="article-related-heading" class="article-related-heading">Related articles</h2>
+          <div class="row g-2 g-md-3 mx-0">${cards}</div>
+        </div>
+      </div>
+      <div class="article-related-comments-sheet">
+        <div class="article-related-wrap mx-auto py-3 py-md-4">
+          <div class="article-fake-comments" id="article-fake-comments" role="region" aria-labelledby="article-fake-comments-title">
+            <h3 class="article-fake-comments-title" id="article-fake-comments-title">Comments</h3>
+            <p id="article-comments-count" class="article-fake-comments-kicker">3 comments</p>
+            <p class="article-fake-comments-note">Your comment shows below for you only — it is not sent to a server and will disappear if you refresh the page.</p>
+            <ul id="article-fake-comment-list" class="article-fake-comment-list list-unstyled mb-0">
+              ${commentItems}
+            </ul>
+            <form id="article-guest-comment-form" class="article-guest-comment-form" action="#" method="get" autocomplete="off">
+              <label class="article-guest-comment-label" for="article-guest-name">Name <span class="article-guest-optional">(optional)</span></label>
+              <input id="article-guest-name" class="article-guest-comment-input" type="text" name="guest-name" maxlength="80" placeholder="Your name">
+              <label class="article-guest-comment-label" for="article-guest-body">Comment</label>
+              <textarea id="article-guest-body" class="article-guest-comment-textarea" name="guest-body" rows="3" maxlength="2000" required placeholder="Share your thoughts…"></textarea>
+              <div class="article-guest-comment-actions">
+                <button type="submit" class="article-fake-composer-btn">Post comment</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>`;
+
+    const footer = document.querySelector('.site-footer');
+    if (footer) {
+        footer.insertAdjacentHTML('beforebegin', html);
+        setupArticleGuestComments();
+    }
 }
 
 //Quote Component - Reusbale testimonial block
@@ -166,11 +504,29 @@ function createImageComponent({ src, alt, caption }) {
   }
 
 
-// Hamburger menu toggle
-function toggleMobileMenu() {
+// Hamburger menu toggle (pass false to force close)
+function toggleMobileMenu(forceOpen) {
     const hamburger = document.querySelector('.hamburger-menu');
-    hamburger.classList.toggle('active');
+    const root = document.getElementById('mobile-nav-root');
+    if (!hamburger || !root) return;
+
+    const isOpen =
+        forceOpen === true
+            ? true
+            : forceOpen === false
+              ? false
+              : !root.classList.contains('is-open');
+
+    hamburger.classList.toggle('active', isOpen);
+    hamburger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    hamburger.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
+    root.classList.toggle('is-open', isOpen);
+    root.hidden = !isOpen;
+    document.body.classList.toggle('mobile-nav-open', isOpen);
 }
+
+// Expose for inline handlers if any page still calls without args
+window.toggleMobileMenu = toggleMobileMenu;
 
 // Load components immediately when script loads (before DOM ready)
 (function() {
@@ -192,21 +548,23 @@ function toggleMobileMenu() {
     // Insert navigation and footer when DOM is ready
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', function() {
-            if (!document.querySelector('nav')) {
+            if (!document.querySelector('.site-header')) {
                 insertNavigation(pageType, currentPage);
             }
-            if (!document.querySelector('footer')) {
+            if (!document.querySelector('.site-footer')) {
                 insertFooter(pageType);
             }
+            insertRelatedArticlesSection(pageType);
         });
     } else {
         // DOM already loaded
-        if (!document.querySelector('nav')) {
+        if (!document.querySelector('.site-header')) {
             insertNavigation(pageType, currentPage);
         }
-        if (!document.querySelector('footer')) {
+        if (!document.querySelector('.site-footer')) {
             insertFooter(pageType);
         }
+        insertRelatedArticlesSection(pageType);
     }
 })();
 
@@ -285,4 +643,31 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
+
+    const moreViewport = document.getElementById('home-more-viewport');
+    const morePrev = document.querySelector('.home-more-prev');
+    const moreNext = document.querySelector('.home-more-next');
+    if (moreViewport) {
+        function updateHomeMoreArrows() {
+            const { scrollLeft, clientWidth, scrollWidth } = moreViewport;
+            const atStart = scrollLeft <= 2;
+            const atEnd = scrollLeft + clientWidth >= scrollWidth - 2;
+            if (morePrev) morePrev.disabled = atStart;
+            if (moreNext) moreNext.disabled = atEnd;
+        }
+        const scrollStep = () => Math.max(220, Math.floor(moreViewport.clientWidth * 0.72));
+        if (morePrev) {
+            morePrev.addEventListener('click', () => {
+                moreViewport.scrollBy({ left: -scrollStep(), behavior: 'smooth' });
+            });
+        }
+        if (moreNext) {
+            moreNext.addEventListener('click', () => {
+                moreViewport.scrollBy({ left: scrollStep(), behavior: 'smooth' });
+            });
+        }
+        moreViewport.addEventListener('scroll', updateHomeMoreArrows, { passive: true });
+        window.addEventListener('resize', updateHomeMoreArrows);
+        updateHomeMoreArrows();
+    }
 });
