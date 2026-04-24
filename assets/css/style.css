@@ -698,6 +698,26 @@ footer:not(.site-footer) {
     background-color: #c0d3c9;
   }
 
+/* Story pages (/pages/): lead hero under .blog-contents — cap width so it is not full-bleed in column */
+.blog-contents > .d-flex:first-child img,
+.blog-contents > div.d-flex:first-child img {
+  width: 100%;
+  max-width: min(100%, 640px);
+  height: auto;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.blog-contents > .image-row:first-of-type img {
+  width: 100%;
+  max-width: min(100%, 640px);
+  height: auto;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 /* Related articles (injected on story pages via main.js, before footer) */
 /* Same content width as the article: match .w-60 (no extra Bootstrap .container side inset) */
 .article-related {
