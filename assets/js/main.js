@@ -270,6 +270,97 @@ const RELATED_ARTICLE_STORIES = [
         title: 'My Shoulder Press Dropped From 33s to 22s — These 5 Things Helped Me Get My Strength Back',
         by: 'By Ashley Reyes',
     },
+    {
+        file: 'walking-20-minutes-daily-changed-my-energy.html',
+        image: '1.png',
+        meta: '<span style="color:#1a1a1a;background:#ffef91;padding:0.1rem 0.32rem;border-radius:2px;">Fitness</span> &nbsp;|&nbsp; APR 20, 2026',
+        title: 'I Started Walking 20 Minutes a Day — Here\'s What Changed in 30 Days',
+        by: 'By Jordan Lee',
+    },
+    {
+        file: 'meal-prep-sunday-five-boxes.html',
+        image: '3.png',
+        meta: '<span style="color:#fff;background:#1976d2;padding:0.1rem 0.32rem;border-radius:2px;">Nutrition</span> &nbsp;|&nbsp; APR 18, 2026',
+        title: 'Meal Prep Sunday: Five Boxes That Saved My Weeknights',
+        by: 'By Morgan Ellis',
+    },
+    {
+        file: 'sleep-first-strength-later.html',
+        image: '5.png',
+        meta: '<span style="color:#fff;background:#388e3c;padding:0.1rem 0.32rem;border-radius:2px;">Health</span> &nbsp;|&nbsp; APR 16, 2026',
+        title: 'Sleep First, Strength Later: The One Change That Unstuck My Training',
+        by: 'By Riley Park',
+    },
+    {
+        file: 'home-workouts-no-equipment.html',
+        image: '7-hero.png',
+        meta: '<span style="color:#1a1a1a;background:#ffef91;padding:0.1rem 0.32rem;border-radius:2px;">Fitness</span> &nbsp;|&nbsp; APR 12, 2026',
+        title: 'Home Workouts With Zero Equipment — A Template I Still Use',
+        by: 'By Taylor Kim',
+    },
+    {
+        file: 'desk-mobility-five-minute-habit.html',
+        image: 'desk-mobility.png',
+        meta: '<span style="color:#1a1a1a;background:#ffef91;padding:0.1rem 0.32rem;border-radius:2px;">Fitness</span> &nbsp;|&nbsp; APR 22, 2026',
+        title: 'Five-Minute Desk Mobility I Do Between Zoom Calls',
+        by: 'By Casey Nguyen',
+    },
+    {
+        file: 'resting-heart-rate-recovery-days.html',
+        image: 'one-metric.png',
+        meta: '<span style="color:#1a1a1a;background:#ffef91;padding:0.1rem 0.32rem;border-radius:2px;">Fitness</span> &nbsp;|&nbsp; APR 21, 2026',
+        title: 'The One Metric I Watch on Recovery Days (Besides Sleep)',
+        by: 'By Devon Walsh',
+    },
+    {
+        file: 'full-body-two-days-messy-weeks.html',
+        image: 'full-body-lifts-hero.png',
+        meta: '<span style="color:#1a1a1a;background:#ffef91;padding:0.1rem 0.32rem;border-radius:2px;">Fitness</span> &nbsp;|&nbsp; APR 19, 2026',
+        title: 'Full-Body Lifts on Messy Weeks: The Twice-a-Week Template I Actually Repeat',
+        by: 'By Naomi Briggs',
+    },
+    {
+        file: 'protein-at-breakfast-mid-morning-energy.html',
+        image: 'protein-breakfast-hero.png',
+        meta: '<span style="color:#fff;background:#1976d2;padding:0.1rem 0.32rem;border-radius:2px;">Nutrition</span> &nbsp;|&nbsp; APR 14, 2026',
+        title: 'Protein at Breakfast Finally Stopped My 10 a.m. Crash',
+        by: 'By Luis Ortega',
+    },
+    {
+        file: 'stairs-for-thirty-days-small-change.html',
+        image: '1.png',
+        meta: '<span style="color:#1a1a1a;background:#ffef91;padding:0.1rem 0.32rem;border-radius:2px;">Fitness</span> &nbsp;|&nbsp; APR 11, 2026',
+        title: 'I Took the Stairs on Purpose for 30 Days — Small Win, Real Difference',
+        by: 'By Amina Okoro',
+    },
+    {
+        file: 'five-energy-drinks-before-lifting.html',
+        image: 'energy-drink.png',
+        meta: '<span style="color:#fff;background:#1976d2;padding:0.1rem 0.32rem;border-radius:2px;">Nutrition</span> &nbsp;|&nbsp; APR 10, 2026',
+        title: 'I Compared 5 Energy Drinks Before Workouts — Here\'s What Actually Held Up',
+        by: 'By Jamie Cole',
+    },
+    {
+        file: 'hotel-room-strength-twenty-minutes.html',
+        image: '7-hero.png',
+        meta: '<span style="color:#1a1a1a;background:#ffef91;padding:0.1rem 0.32rem;border-radius:2px;">Fitness</span> &nbsp;|&nbsp; APR 9, 2026',
+        title: 'A 20-Minute Hotel-Room Strength Session I Pack Every Trip',
+        by: 'By Marco Ruiz',
+    },
+    {
+        file: 'gym-after-flu-no-heroics-return.html',
+        image: '3month-hero.png',
+        meta: '<span style="color:#1a1a1a;background:#ffef91;padding:0.1rem 0.32rem;border-radius:2px;">Fitness</span> &nbsp;|&nbsp; APR 7, 2026',
+        title: 'Coming Back to the Gym After the Flu — The No-Heroics Pact That Worked',
+        by: 'By Sienna Hartley',
+    },
+    {
+        file: 'small-deload-weeks-finally-stuck.html',
+        image: 'TPB-33-1.png',
+        meta: '<span style="color:#1a1a1a;background:#ffef91;padding:0.1rem 0.32rem;border-radius:2px;">Fitness</span> &nbsp;|&nbsp; APR 5, 2026',
+        title: 'Why Small Deload Weeks Finally Stuck (And Saved My Progress)',
+        by: 'By Riley Chen',
+    },
 ];
 
 /** Story pages with sidebar rail but omitted from RELATED_ARTICLE_STORIES (used only for ad alternation order). */
@@ -330,6 +421,71 @@ const ARTICLE_PRESET_COMMENTS_BY_PAGE = {
         { initial: 'R', name: 'Rae L.', time: 'Apr 20, 2026', text: 'Shoulder numbers dipping is so demoralizing. Glad you spelled out what actually moved the needle for you.' },
         { initial: 'S', name: 'Sam V.', time: 'Apr 19, 2026', text: 'Physical therapy plus patience — good reminder. I have been trying to rush the bar back up too fast.' },
         { initial: 'Q', name: 'Quinn J.', time: 'Apr 18, 2026', text: 'Which of the five did you notice first in the gym? For me it was sleep before anything else clicked.' },
+    ],
+    'walking-20-minutes-daily-changed-my-energy.html': [
+        { initial: 'F', name: 'Felix R.', time: 'Apr 21, 2026', text: 'Twenty minutes is the sweet spot. I have been doing the same after lunch and the crash is way shorter.' },
+        { initial: 'N', name: 'Nora T.', time: 'Apr 20, 2026', text: 'Not glamorous but it stuck. Better than the gym membership I was not using.' },
+        { initial: 'B', name: 'Ben C.', time: 'Apr 19, 2026', text: 'Same route every day sounds boring until you realize you stop negotiating with yourself.' },
+    ],
+    'meal-prep-sunday-five-boxes.html': [
+        { initial: 'A', name: 'Alma V.', time: 'Apr 19, 2026', text: 'Five boxes is realistic. Most meal-prep posts assume I have three hours and a film crew.' },
+        { initial: 'J', name: 'Jules M.', time: 'Apr 18, 2026', text: 'The backup dinner idea saved me twice this week. Simple but it works.' },
+        { initial: 'T', name: 'Tess O.', time: 'Apr 17, 2026', text: 'Started with three like you said. Already bumped to four without feeling overwhelmed.' },
+    ],
+    'sleep-first-strength-later.html': [
+        { initial: 'K', name: 'Kai D.', time: 'Apr 17, 2026', text: 'I kept adding volume until I was wrecked. This was the permission slip to back off and recover.' },
+        { initial: 'M', name: 'Mira L.', time: 'Apr 16, 2026', text: 'Warm-ups feeling heavy was exactly my sign too. Tracking that was a lightbulb moment.' },
+        { initial: 'P', name: 'Paul H.', time: 'Apr 15, 2026', text: 'Boring fix, big payoff. Wish I had read this before I rewrote my whole split twice.' },
+    ],
+    'home-workouts-no-equipment.html': [
+        { initial: 'Z', name: 'Zoe P.', time: 'Apr 13, 2026', text: 'The towel rows on a door are genius for travel. Whole routine fits in a hotel hallway.' },
+        { initial: 'D', name: 'Drew K.', time: 'Apr 12, 2026', text: 'Twenty minutes and done — I actually finish these. No equipment excuses left.' },
+        { initial: 'E', name: 'Ellie S.', time: 'Apr 11, 2026', text: 'Progressing on rep quality instead of new moves is what I needed to hear.' },
+    ],
+    'desk-mobility-five-minute-habit.html': [
+        { initial: 'C', name: 'Caleb R.', time: 'Apr 23, 2026', text: 'Between meetings is exactly when I stiffen up. Five minutes is doable without feeling silly.' },
+        { initial: 'W', name: 'Whit A.', time: 'Apr 22, 2026', text: 'Chair thoracic opens are underrated. I do two rounds before my last call block.' },
+        { initial: 'H', name: 'Holly N.', time: 'Apr 21, 2026', text: 'Frequency over duration — yes. This is the first desk thing I did not abandon in a week.' },
+    ],
+    'resting-heart-rate-recovery-days.html': [
+        { initial: 'O', name: 'Omar S.', time: 'Apr 22, 2026', text: 'Autoregulating squat days off one morning number sounds wild until you try it. Fewer junk grinders.' },
+        { initial: 'Y', name: 'Yuki T.', time: 'Apr 21, 2026', text: 'Yellow morning = accessories instead of a second heavy compound. That line alone was worth it.' },
+        { initial: 'L', name: 'Lane P.', time: 'Apr 20, 2026', text: 'Finally a wearable story that is about programming, not meditation apps. More of this angle please.' },
+    ],
+    'full-body-two-days-messy-weeks.html': [
+        { initial: 'R', name: 'Rina K.', time: 'Apr 20, 2026', text: 'Day A / Day B with a fallback to only Day A is exactly how I survived conference season.' },
+        { initial: 'G', name: 'Gabe F.', time: 'Apr 19, 2026', text: 'Progressing one variable at a time clicked. I stopped scrapping the whole block when work blew up.' },
+        { initial: 'S', name: 'Sofia M.', time: 'Apr 18, 2026', text: 'Nothing exotic is the point. I finally have a default I do not have to rethink every Sunday night.' },
+    ],
+    'protein-at-breakfast-mid-morning-energy.html': [
+        { initial: 'N', name: 'Noah B.', time: 'Apr 15, 2026', text: 'Additive not subtractive — that line landed. I still eat toast, just not only toast.' },
+        { initial: 'E', name: 'Erin J.', time: 'Apr 14, 2026', text: '10 a.m. crash was my whole brand. Eggs first genuinely helped without counting macros.' },
+        { initial: 'D', name: 'Dante L.', time: 'Apr 13, 2026', text: 'Leftovers for breakfast is genius when I am lazy. Why did I not think of that sooner.' },
+    ],
+    'stairs-for-thirty-days-small-change.html': [
+        { initial: 'M', name: 'Milo C.', time: 'Apr 12, 2026', text: 'Fourth floor crew. Small win but I feel less winded on hikes now.' },
+        { initial: 'A', name: 'Ana V.', time: 'Apr 11, 2026', text: 'Gateway habit idea resonates. I added a short walk after because stairs felt doable.' },
+        { initial: 'J', name: 'Jared T.', time: 'Apr 10, 2026', text: 'Not a transformation story — thank you. Consistency without theatrics.' },
+    ],
+    'five-energy-drinks-before-lifting.html': [
+        { initial: 'K', name: 'Kim R.', time: 'Apr 11, 2026', text: 'Finally someone judged these on squats, not vibes. The carbonation point is too real.' },
+        { initial: 'V', name: 'Vic L.', time: 'Apr 10, 2026', text: 'I am the person who always bought the strongest can. Rethinking after the shaky top set bit.' },
+        { initial: 'T', name: 'Talia S.', time: 'Apr 9, 2026', text: 'Banana and coffee footnote made me laugh — also fair. Good comparison format.' },
+    ],
+    'hotel-room-strength-twenty-minutes.html': [
+        { initial: 'P', name: 'Pete W.', time: 'Apr 10, 2026', text: 'Towel rows saved my back on a two-week trip. Maintenance mindset clicked.' },
+        { initial: 'I', name: 'Ines G.', time: 'Apr 9, 2026', text: 'Same reps slower negatives — I stopped treating travel workouts like a PR session.' },
+        { initial: 'U', name: 'Uma D.', time: 'Apr 8, 2026', text: 'Split squats with bed balance is stable enough for me. Simple template.' },
+    ],
+    'gym-after-flu-no-heroics-return.html': [
+        { initial: 'F', name: 'Frank O.', time: 'Apr 8, 2026', text: 'No PRs for ten days is the rule I needed. I always come back too hot and pay for it.' },
+        { initial: 'C', name: 'Cara M.', time: 'Apr 7, 2026', text: 'Heart rate spike on warm-ups as a stop signal — smart. I have ignored that too long.' },
+        { initial: 'B', name: 'Bo H.', time: 'Apr 6, 2026', text: 'Boring rules that work > heroic comeback posts. This read felt adult.' },
+    ],
+    'small-deload-weeks-finally-stuck.html': [
+        { initial: 'X', name: 'Ximena R.', time: 'Apr 6, 2026', text: 'Scheduling deload before I feel broken is new for me. Log line idea stolen.' },
+        { initial: 'Q', name: 'Quentin L.', time: 'Apr 5, 2026', text: 'Same lifts fewer hard sets — I finally understand what “downramp” means in practice.' },
+        { initial: 'N', name: 'Nia P.', time: 'Apr 4, 2026', text: 'PRs lining up after lighter weeks matches my coach keeps saying. Nice to read it plain.' },
     ],
 };
 
@@ -416,6 +572,37 @@ function setupArticleGuestComments() {
     setCount();
 }
 
+/** Aesop-style horizontal banner mid-article (Ninja). */
+function insertArticleHorizontalAd(blogContents, imgBase) {
+    if (!blogContents || blogContents.querySelector('.article-horiz-ad')) return;
+
+    const horiz = document.createElement('aside');
+    horiz.className = 'article-horiz-ad';
+    horiz.setAttribute('aria-label', 'Advertisement');
+    horiz.innerHTML = `
+        <p class="article-horiz-ad-kicker">Advertisement</p>
+        <div class="article-horiz-ad-split">
+          <div class="article-horiz-ad-copy">
+            <p class="article-horiz-ad-brand">Ninja</p>
+            <p class="article-horiz-ad-headline">Countertop power, cookbook calm—quiet mornings that still get things done.</p>
+            <span class="article-horiz-ad-cta">Discover Ninja</span>
+          </div>
+          <div class="article-horiz-ad-media">
+            <img src="${imgBase}ninja.png" alt="Ninja blender on a marble kitchen counter" loading="eager">
+          </div>
+        </div>
+    `;
+
+    const blocks = [...blogContents.children];
+    const mid = Math.floor(blocks.length / 2);
+    const nextEl = blocks[mid] || null;
+    if (nextEl) {
+        blogContents.insertBefore(horiz, nextEl);
+    } else {
+        blogContents.appendChild(horiz);
+    }
+}
+
 /** Vertical sidebar promo on story pages (desktop: right column; mobile: below article). */
 function insertArticleSidebarAd(pageType) {
     if (pageType !== 'blog') return;
@@ -454,6 +641,7 @@ function insertArticleSidebarAd(pageType) {
     parent.insertBefore(wrapper, blogContents);
     wrapper.appendChild(mainCol);
     mainCol.appendChild(blogContents);
+    insertArticleHorizontalAd(blogContents, imgBase);
     wrapper.appendChild(aside);
 
     setupArticleSidebarAdResponsive();
@@ -469,7 +657,9 @@ function relocateArticleSidebarAdForViewport() {
     const mobile = window.matchMedia('(max-width: 991.98px)').matches;
 
     if (mobile) {
-        const blocks = [...blog.children].filter((el) => el !== aside);
+        const blocks = [...blog.children].filter(
+            (el) => el !== aside && !el.classList.contains('article-horiz-ad')
+        );
         const mid = Math.floor(blocks.length / 2);
         const nextEl = blocks[mid] || null;
         aside.classList.add('article-sidebar-ad--in-flow');
