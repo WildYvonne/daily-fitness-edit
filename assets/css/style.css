@@ -4,6 +4,12 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+/* Story shell width: article column + injected related/comments (main.js) stay aligned */
+:root {
+  --article-shell-width: 70%;
+  --article-shell-width-sm: 90%;
+}
 .search-icon {
   display: none;
 }
@@ -140,11 +146,10 @@
   top: 0;
   right: 0;
   bottom: 0;
-  width: min(100%, 320px);
-  max-width: 100%;
+  width: clamp(11rem, 70vw, 15.75rem);
   background: #2a2a2a;
   color: #fff;
-  padding: clamp(5.5rem, 18vw, 6.5rem) clamp(1.5rem, 5vw, 2rem) 2rem;
+  padding: clamp(5.5rem, 18vw, 6.5rem) clamp(1rem, 4vw, 1.35rem) 2rem;
   display: flex;
   flex-direction: column;
   gap: clamp(1.5rem, 5vw, 2.5rem);
@@ -702,24 +707,145 @@ footer:not(.site-footer) {
 .blog-contents > .d-flex:first-child img,
 .blog-contents > div.d-flex:first-child img {
   width: 100%;
-  max-width: min(100%, 640px);
+  max-width: min(100%, 42.5rem);
   height: auto;
   display: block;
-  margin-left: auto;
+  margin-left: 0;
   margin-right: auto;
 }
 
 .blog-contents > .image-row:first-of-type img {
   width: 100%;
-  max-width: min(100%, 640px);
+  max-width: min(100%, 42.5rem);
   height: auto;
   display: block;
+  margin-left: 0;
+  margin-right: auto;
+}
+
+/* Space below figures (hero strip + every .image-row block) */
+.blog-contents .image-row {
+  margin-bottom: 1.25rem;
+}
+
+.blog-contents .d-flex.justify-content-center:has(img) {
+  margin-bottom: 1.25rem;
+  justify-content: flex-start !important;
+}
+
+/* Article body: narrow column, flush left inside w-60 so space stays on the right */
+section.w-60 .blog-contents {
+  max-width: min(100%, 45rem);
+  margin-left: 0;
+  margin-right: auto;
+  box-sizing: border-box;
+}
+
+/* Two-column article + right rail (Oura ad injected via main.js) */
+section.w-60 .article-layout-main .blog-contents {
+  max-width: 100%;
+  margin-right: 0;
+}
+
+.article-layout-with-rail {
+  --article-sidebar-ad-max: 280px;
+}
+
+.article-sidebar-ad-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.75rem;
+  padding: 0.35rem 0 1rem;
+}
+
+.article-sidebar-ad-label {
+  font-family: "Roboto", "Arial", sans-serif;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #777;
+  margin: 0;
+  text-align: center;
+}
+
+.article-sidebar-ad-frame {
+  display: block;
+  line-height: 0;
+  overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  max-width: var(--article-sidebar-ad-max);
+  margin-inline: auto;
+}
+
+.article-sidebar-ad-img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.article-sidebar-ad-btn {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: var(--article-sidebar-ad-max);
+  margin-inline: auto;
+  padding: 0.6rem 1rem;
+  text-align: center;
+  font-family: "Roboto", "Arial", sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #fff;
+  background: #111;
+  border-radius: 6px;
+  border: 1px solid #111;
+  cursor: default;
+  user-select: none;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.article-sidebar-ad-btn:hover {
+  color: #fff;
+  background: #000;
+  border-color: #000;
+}
+
+@media (min-width: 992px) {
+  .article-sidebar-ad {
+    position: sticky;
+    top: 1rem;
+  }
+}
+
+/* Mid-article placement on small screens (JS moves aside into .blog-contents) */
+.blog-contents > .article-sidebar-ad--in-flow {
+  position: static;
+  width: 100%;
+  max-width: 100%;
+  flex: none;
+  padding-left: 0;
+  padding-right: 0;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.blog-contents > .article-sidebar-ad--in-flow .article-sidebar-ad-inner {
   margin-left: auto;
   margin-right: auto;
 }
 
+@media (max-width: 991.98px) {
+  .article-sidebar-ad-inner {
+    max-width: min(100%, 320px);
+    margin-inline: auto;
+  }
+}
+
 /* Related articles (injected on story pages via main.js, before footer) */
-/* Same content width as the article: match .w-60 (no extra Bootstrap .container side inset) */
+/* Full-bleed bands; outer = page-width gutters; inner can grow wider than article column */
 .article-related {
   background: #fff;
 }
@@ -740,20 +866,30 @@ footer:not(.site-footer) {
   margin-top: 0;
 }
 
+.article-related .article-related-outer {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: clamp(1rem, 4vw, 2.75rem);
+  padding-right: clamp(1rem, 4vw, 2.75rem);
+}
+
 .article-related .article-related-wrap {
   box-sizing: border-box;
-  width: 70% !important;
-  max-width: 100%;
+  width: 100%;
+  max-width: min(100%, 75rem);
   margin-left: auto;
   margin-right: auto;
   padding-left: 0;
   padding-right: 0;
 }
 
-@media (max-width: 576.98px) {
-  .article-related .article-related-wrap {
-    width: 90% !important;
-  }
+/* Equal-height cards: column is a flex container so .article-related-card fills row height */
+.article-related .row > [class*="col-"] {
+  display: flex;
+  flex-direction: column;
 }
 
 /* Align card row with heading: column gutters indent cards vs. plain h2 */
@@ -786,9 +922,10 @@ footer:not(.site-footer) {
 .article-related-card {
   background: #fff;
   border: 1px solid rgba(0, 0, 0, 0.08);
-  border-radius: 8px;
   overflow: hidden;
-  height: 100%;
+  flex: 1 1 auto;
+  width: 100%;
+  min-height: 0;
   display: flex;
   flex-direction: column;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
@@ -800,18 +937,24 @@ footer:not(.site-footer) {
 }
 
 .article-related-card > a {
+  display: block;
   line-height: 0;
+  overflow: hidden;
+  flex-shrink: 0;
+  height: clamp(11.5rem, 30vw, 17rem);
 }
 
 .article-related-img {
   width: 100%;
-  aspect-ratio: 4 / 3;
+  height: 100%;
+  min-height: 100%;
   object-fit: cover;
+  object-position: center;
   display: block;
 }
 
 .article-related-body {
-  padding: 0.65rem 0.75rem 0.9rem;
+  padding: 0.75rem 0.85rem 1rem;
   display: flex;
   flex-direction: column;
   flex: 1 1 auto;

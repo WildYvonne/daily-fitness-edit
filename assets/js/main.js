@@ -272,6 +272,28 @@ const RELATED_ARTICLE_STORIES = [
     },
 ];
 
+/** Story pages with sidebar rail but omitted from RELATED_ARTICLE_STORIES (used only for ad alternation order). */
+const ARTICLE_SIDEBAR_AD_EXTRA_FILES = ['home-decor-less-than-50.html'];
+
+const ARTICLE_SIDEBAR_AD_ASSETS = [
+    { image: 'oura-ring.png', alt: 'Oura Ring' },
+    { image: 'apple-watch.png', alt: 'Apple Watch' },
+];
+
+/** 0 = first asset (Oura), 1 = second (Apple Watch); stable per filename. */
+function getArticleSidebarAdSlot(file) {
+    const ordered = [
+        ...new Set([...RELATED_ARTICLE_STORIES.map((s) => s.file), ...ARTICLE_SIDEBAR_AD_EXTRA_FILES]),
+    ].sort();
+    const i = ordered.indexOf(file);
+    if (i >= 0) return i % ARTICLE_SIDEBAR_AD_ASSETS.length;
+    let h = 0;
+    for (let c = 0; c < file.length; c += 1) {
+        h = (h * 31 + file.charCodeAt(c)) >>> 0;
+    }
+    return h % ARTICLE_SIDEBAR_AD_ASSETS.length;
+}
+
 /** Preset thread under Comments — three items per story page (topic-matched; not stored). */
 const ARTICLE_PRESET_COMMENTS_BY_PAGE = {
     '5-solutions-brain-fog-think-clearly.html': [
@@ -394,6 +416,87 @@ function setupArticleGuestComments() {
     setCount();
 }
 
+/** Vertical sidebar promo on story pages (desktop: right column; mobile: below article). */
+function insertArticleSidebarAd(pageType) {
+    if (pageType !== 'blog') return;
+    if (!window.location.pathname.includes('/pages/')) return;
+    const file = (window.location.pathname.split('/').pop() || '').split('?')[0];
+    if (!file.endsWith('.html') || file.startsWith('category-')) return;
+
+    const section = document.querySelector('section.w-60');
+    const blogContents = section && section.querySelector(':scope > .blog-contents');
+    if (!blogContents || section.querySelector('.article-layout-with-rail')) return;
+
+    const imgBase = '../assets/images/';
+    const ad = ARTICLE_SIDEBAR_AD_ASSETS[getArticleSidebarAdSlot(file)];
+
+    const wrapper = document.createElement('div');
+    wrapper.className = 'article-layout-with-rail row align-items-start gx-3 gx-lg-4';
+
+    const mainCol = document.createElement('div');
+    mainCol.className = 'col-12 col-lg-8 article-layout-main';
+
+    const aside = document.createElement('aside');
+    aside.className = 'col-12 col-lg-4 article-sidebar-ad';
+    aside.setAttribute('aria-label', 'Advertisement');
+
+    aside.innerHTML = `
+      <div class="article-sidebar-ad-inner">
+        <p class="article-sidebar-ad-label">Advertisement</p>
+        <div class="article-sidebar-ad-frame">
+          <img class="article-sidebar-ad-img" src="${imgBase}${ad.image}" alt="${ad.alt}" loading="lazy">
+        </div>
+        <span class="article-sidebar-ad-btn">Shop now</span>
+      </div>
+    `;
+
+    const parent = blogContents.parentNode;
+    parent.insertBefore(wrapper, blogContents);
+    wrapper.appendChild(mainCol);
+    mainCol.appendChild(blogContents);
+    wrapper.appendChild(aside);
+
+    setupArticleSidebarAdResponsive();
+}
+
+/** Mobile: place vertical ad mid-article; desktop: keep in right rail. */
+function relocateArticleSidebarAdForViewport() {
+    const wrapper = document.querySelector('.article-layout-with-rail');
+    const blog = document.querySelector('.article-layout-main .blog-contents');
+    const aside = document.querySelector('.article-sidebar-ad');
+    if (!wrapper || !blog || !aside) return;
+
+    const mobile = window.matchMedia('(max-width: 991.98px)').matches;
+
+    if (mobile) {
+        const blocks = [...blog.children].filter((el) => el !== aside);
+        const mid = Math.floor(blocks.length / 2);
+        const nextEl = blocks[mid] || null;
+        aside.classList.add('article-sidebar-ad--in-flow');
+        if (nextEl) {
+            blog.insertBefore(aside, nextEl);
+        } else {
+            blog.appendChild(aside);
+        }
+    } else {
+        aside.classList.remove('article-sidebar-ad--in-flow');
+        wrapper.appendChild(aside);
+    }
+}
+
+function setupArticleSidebarAdResponsive() {
+    const mq = window.matchMedia('(max-width: 991.98px)');
+    const run = () => {
+        relocateArticleSidebarAdForViewport();
+    };
+    run();
+    if (typeof mq.addEventListener === 'function') {
+        mq.addEventListener('change', run);
+    } else {
+        mq.addListener(run);
+    }
+}
+
 function insertRelatedArticlesSection(pageType) {
     if (pageType !== 'blog') return;
     if (!window.location.pathname.includes('/pages/')) return;
@@ -438,13 +541,16 @@ function insertRelatedArticlesSection(pageType) {
     const html = `
     <section id="related-articles" class="article-related" aria-labelledby="article-related-heading">
       <div class="article-related-cards-sheet">
-        <div class="article-related-wrap mx-auto py-3 py-md-4">
-          <h2 id="article-related-heading" class="article-related-heading">Related articles</h2>
-          <div class="row g-2 g-md-3 mx-0">${cards}</div>
+        <div class="article-related-outer">
+          <div class="article-related-wrap py-3 py-md-4">
+            <h2 id="article-related-heading" class="article-related-heading">Related articles</h2>
+            <div class="row g-2 g-md-3 mx-0">${cards}</div>
+          </div>
         </div>
       </div>
       <div class="article-related-comments-sheet">
-        <div class="article-related-wrap mx-auto py-3 py-md-4">
+        <div class="article-related-outer">
+          <div class="article-related-wrap py-3 py-md-4">
           <div class="article-fake-comments" id="article-fake-comments" role="region" aria-labelledby="article-fake-comments-title">
             <h3 class="article-fake-comments-title" id="article-fake-comments-title">Comments</h3>
             <p id="article-comments-count" class="article-fake-comments-kicker">3 comments</p>
@@ -461,6 +567,7 @@ function insertRelatedArticlesSection(pageType) {
                 <button type="submit" class="article-fake-composer-btn">Post comment</button>
               </div>
             </form>
+          </div>
           </div>
         </div>
       </div>
@@ -554,6 +661,7 @@ window.toggleMobileMenu = toggleMobileMenu;
             if (!document.querySelector('.site-footer')) {
                 insertFooter(pageType);
             }
+            insertArticleSidebarAd(pageType);
             insertRelatedArticlesSection(pageType);
         });
     } else {
@@ -564,6 +672,7 @@ window.toggleMobileMenu = toggleMobileMenu;
         if (!document.querySelector('.site-footer')) {
             insertFooter(pageType);
         }
+        insertArticleSidebarAd(pageType);
         insertRelatedArticlesSection(pageType);
     }
 })();

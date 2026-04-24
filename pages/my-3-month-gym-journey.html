@@ -84,7 +84,10 @@
         transition: opacity 0.3s ease;
         font-family: Georgia, serif !important;
     }
-    .w-60 { width: 60% !important; }
+    :root {
+        --article-shell-width: 60%;
+    }
+    .w-60 { width: var(--article-shell-width) !important; }
 
     .blog-category {
         align-items: center;
@@ -151,7 +154,7 @@
     /* On mobile (Bootstrap's sm breakpoint and below) */
     @media (max-width: 576px) {
         .w-60 {
-            width: 90% !important;
+            width: var(--article-shell-width-sm) !important;
         }
     }
 

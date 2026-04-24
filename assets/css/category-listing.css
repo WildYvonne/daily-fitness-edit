@@ -15,21 +15,28 @@
   color: #111;
 }
 
-/* Override global `nav` (space-between) on category listing pages */
+/* Override global `nav` (incl. mobile flex-direction: column in style.css) */
 .category-listing-main nav.category-pills {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: row;
+  flex-wrap: nowrap;
   justify-content: flex-start;
   align-items: center;
   gap: 0.35rem;
-  width: fit-content;
-  max-width: none;
+  width: 100%;
+  max-width: 100%;
   margin: 0 0 2rem;
-  padding: 0;
+  padding: 0 0 0.25rem;
+  box-sizing: border-box;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
 }
 
 .category-pills a {
   display: inline-block;
+  flex-shrink: 0;
   padding: 0.4rem 0.75rem;
   font-family: "Roboto", "Arial", sans-serif;
   font-size: 0.78rem;
@@ -48,10 +55,79 @@
   color: #e8833a;
 }
 
+/* Active pill: default (fallback) */
 .category-pills a[aria-current="page"] {
   background: #202020;
   color: #fff;
   border-color: #202020;
+}
+
+/* Active pill matches category chip colors (same as .cat-label--*) */
+.category-listing--fitness .category-pills a[aria-current="page"] {
+  background: #ffef91;
+  color: #1a1a1a;
+  border-color: #e8dc7a;
+}
+
+.category-listing--health .category-pills a[aria-current="page"] {
+  background: #388e3c;
+  color: #fff;
+  border-color: #2e7d32;
+}
+
+.category-listing--nutrition .category-pills a[aria-current="page"] {
+  background: #1976d2;
+  color: #fff;
+  border-color: #1565c0;
+}
+
+.category-listing--editors-pick .category-pills a[aria-current="page"] {
+  background: #e65100;
+  color: #fff;
+  border-color: #bf360c;
+}
+
+.category-listing--fitness .category-pills a[aria-current="page"]:hover {
+  color: #1a1a1a;
+  border-color: #dcc868;
+  filter: brightness(0.97);
+}
+
+.category-listing--health .category-pills a[aria-current="page"]:hover,
+.category-listing--nutrition .category-pills a[aria-current="page"]:hover,
+.category-listing--editors-pick .category-pills a[aria-current="page"]:hover {
+  color: #fff;
+  filter: brightness(1.06);
+}
+
+@media (max-width: 768px) {
+  .category-listing-main nav.category-pills {
+    gap: 0.26rem;
+    justify-content: center;
+    flex-wrap: nowrap;
+    overflow-x: visible;
+  }
+
+  .category-pills a {
+    padding: 0.35rem 0.52rem;
+    font-size: clamp(0.64rem, 2.9vw, 0.76rem);
+    letter-spacing: 0.045em;
+    border-radius: 4px;
+    line-height: 1.2;
+  }
+}
+
+@media (max-width: 380px) {
+  .category-listing-main {
+    padding-left: 0.65rem;
+    padding-right: 0.65rem;
+  }
+
+  .category-pills a {
+    padding: 0.35rem 0.42rem;
+    font-size: 0.62rem;
+    letter-spacing: 0.035em;
+  }
 }
 
 .category-list-grid {
@@ -135,4 +211,14 @@
 .category-empty a {
   color: #e8833a;
   font-weight: 600;
+}
+
+@media (min-width: 769px) {
+  .category-listing-main nav.category-pills {
+    flex-wrap: wrap;
+    overflow-x: visible;
+    width: fit-content;
+    max-width: none;
+    padding-bottom: 0;
+  }
 }
