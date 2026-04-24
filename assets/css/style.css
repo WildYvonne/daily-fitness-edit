@@ -832,6 +832,13 @@ section.w-60 .article-layout-main .blog-contents {
   margin-bottom: 1.5rem;
 }
 
+/* Mobile: extra air when Oura rail follows the Ninja strip so both ads are not stacked consecutively */
+@media (max-width: 991.98px) {
+  .blog-contents > .article-horiz-ad + .article-sidebar-ad--in-flow {
+    margin-top: 2.75rem;
+  }
+}
+
 .blog-contents > .article-sidebar-ad--in-flow .article-sidebar-ad-inner {
   margin-left: auto;
   margin-right: auto;

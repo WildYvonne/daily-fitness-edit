@@ -328,7 +328,7 @@ const RELATED_ARTICLE_STORIES = [
     },
     {
         file: 'stairs-for-thirty-days-small-change.html',
-        image: '1.png',
+        image: 'stairs.png',
         meta: '<span style="color:#1a1a1a;background:#ffef91;padding:0.1rem 0.32rem;border-radius:2px;">Fitness</span> &nbsp;|&nbsp; APR 11, 2026',
         title: 'I Took the Stairs on Purpose for 30 Days — Small Win, Real Difference',
         by: 'By Amina Okoro',
@@ -657,16 +657,35 @@ function relocateArticleSidebarAdForViewport() {
     const mobile = window.matchMedia('(max-width: 991.98px)').matches;
 
     if (mobile) {
+        const horiz = blog.querySelector('.article-horiz-ad');
         const blocks = [...blog.children].filter(
             (el) => el !== aside && !el.classList.contains('article-horiz-ad')
         );
         const mid = Math.floor(blocks.length / 2);
-        const nextEl = blocks[mid] || null;
+        let nextEl = blocks[mid] || null;
         aside.classList.add('article-sidebar-ad--in-flow');
         if (nextEl) {
             blog.insertBefore(aside, nextEl);
         } else {
             blog.appendChild(aside);
+        }
+        /* Avoid stacking both promos back-to-back: push Oura below Ninja + a bit of body copy. */
+        if (horiz && horiz.nextElementSibling === aside) {
+            let ref = aside.nextElementSibling;
+            let contentSteps = 0;
+            while (ref && contentSteps < 2) {
+                if (ref.nodeType === 1 && !ref.classList.contains('article-horiz-ad')) {
+                    contentSteps += 1;
+                }
+                if (contentSteps < 2) {
+                    ref = ref.nextElementSibling;
+                }
+            }
+            if (ref) {
+                blog.insertBefore(aside, ref.nextElementSibling);
+            } else {
+                blog.appendChild(aside);
+            }
         }
     } else {
         aside.classList.remove('article-sidebar-ad--in-flow');
