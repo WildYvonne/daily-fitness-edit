@@ -6,6 +6,22 @@ function categoryNavHref(pageType, slug) {
     return pageType === 'blog' ? file : `pages/${file}`;
 }
 
+// Converge Pixel - Insert tracking script once globally
+function insertConvergePixel() {
+    if (document.querySelector('script[src*="runconverge.com"]')) return;
+
+    const pixelScript = document.createElement('script');
+    pixelScript.src = 'https://static.runconverge.com/pixels/n1sb5O.js';
+    pixelScript.async = true;
+    document.head.appendChild(pixelScript);
+
+    window.cvg || (cvg = function () {
+        cvg.process ? cvg.process.apply(cvg, arguments) : cvg.queue.push(arguments);
+    }, cvg.queue = []);
+    cvg({ method: 'track', eventName: '$page_load' });
+    cvg({ method: 'link_domain', domain: 'pacagen.com' });
+}
+
 // Head Component - Insert favicon and stylesheets
 function insertHeadElements(pageType = 'root') {
     // Check if head elements already exist to prevent duplicates
@@ -30,7 +46,10 @@ function insertHeadElements(pageType = 'root') {
     
     // Insert the elements into the head
     document.head.insertAdjacentHTML('beforeend', headElements);
-    
+
+    // Load Converge pixel
+    insertConvergePixel();
+
     // Load stylesheets with proper loading detection
     loadStylesheets(assetPath);
 }
@@ -418,6 +437,8 @@ const ARTICLE_PRESET_COMMENTS_BY_PAGE = {
         { initial: 'G', name: 'Gina P.', time: 'Apr 9, 2026', text: 'Did you track workouts in an app or a notebook? Curious how you kept the streak on rough days.' },
     ],
     '5-things-help-me-get-my-strength-back.html': [
+        { initial: 'R', name: 'Rachel M.', time: 'Apr 22, 2026', text: 'I was skeptical at first — I\'d tried a few supplements before and felt nothing. Triple Power Build was different. By week four my shoulder press was back up and I wasn\'t dreading leg day anymore. It\'s the only thing I\'ve stuck with consistently.' },
+        { initial: 'D', name: 'Danielle K.', time: 'Apr 21, 2026', text: 'I lost a lot of strength after a stressful few months and couldn\'t figure out why. A friend recommended Triple Power Build and within six weeks I was lifting heavier than before my slump. The recovery difference alone was worth it.' },
         { initial: 'R', name: 'Rae L.', time: 'Apr 20, 2026', text: 'Shoulder numbers dipping is so demoralizing. Glad you spelled out what actually moved the needle for you.' },
         { initial: 'S', name: 'Sam V.', time: 'Apr 19, 2026', text: 'Physical therapy plus patience — good reminder. I have been trying to rush the bar back up too fast.' },
         { initial: 'Q', name: 'Quinn J.', time: 'Apr 18, 2026', text: 'Which of the five did you notice first in the gym? For me it was sleep before anything else clicked.' },
@@ -763,7 +784,6 @@ function insertRelatedArticlesSection(pageType) {
           <div class="article-fake-comments" id="article-fake-comments" role="region" aria-labelledby="article-fake-comments-title">
             <h3 class="article-fake-comments-title" id="article-fake-comments-title">Comments</h3>
             <p id="article-comments-count" class="article-fake-comments-kicker">3 comments</p>
-            <p class="article-fake-comments-note">Your comment shows below for you only — it is not sent to a server and will disappear if you refresh the page.</p>
             <ul id="article-fake-comment-list" class="article-fake-comment-list list-unstyled mb-0">
               ${commentItems}
             </ul>
